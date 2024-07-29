@@ -43,6 +43,7 @@ const geoFenceMiddleware = (req, res, next) => {
     }
 
     const userLocationPinCode = geo.zip;
+    console.log("userLocationPinCode ", userLocationPinCode);
     if (userPinCode !== userLocationPinCode) {
         return res.status(403).send('Error: This URL is accessible only within the allowed pin code area.');
     }
