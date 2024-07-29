@@ -49,7 +49,7 @@ const geoFenceMiddleware = (req, res, next) => {
 };
 
 // Route to handle mobile-only and geo-fenced access
-app.get('/mobile-only', mobileOnlyMiddleware, geoFenceMiddleware, (req, res) => {
+app.get('/verify', mobileOnlyMiddleware, geoFenceMiddleware, (req, res) => {
     res.send('This URL is accessible on mobile browsers within the allowed pin code area.');
 });
 
