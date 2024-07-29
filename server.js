@@ -13,8 +13,8 @@ app.use(requestIp.mw());
 // Sample email to pin code mapping
 const emailToPinCodeMap = {
     'user1@example.com': '110001',
-    'user2@example.com': '110002',
-    'user3@example.com': '110003',
+    'user2@example.com': '400076',
+    'user3@example.com': '400072',
 };
 
 // Middleware to check if the request is from a mobile browser
@@ -35,8 +35,9 @@ const geoFenceMiddleware = (req, res, next) => {
     }
 
     const clientIp = req.clientIp;
+    console.log("clientIP ", clientIp);
     const geo = geoip.lookup(clientIp);
-
+    console.log("geo ", geo);
     if (!geo) {
         return res.status(403).send('Error: Unable to determine location from IP.');
     }
