@@ -47,8 +47,11 @@ const geoFenceMiddleware = (req, res, next) => {
     //const userLocationPinCode = geo.zip;
     const userLocationCity = geo.city;
     console.log("userLocationCity ", userLocationCity);
-    if (userCity !== userLocationCity) {
-        return res.status(403).send('Error: This URL is accessible only within the allowed city area.');
+    if (userCity == userLocationCity) {
+        return res.status(201).send('Great to see you in ', userLocationCity);
+    }
+    else {
+        return res.status(403).send('Error: This URL is accessible only within the allowed city area. You are accessing this URL from ', userLocationCity);
     }
     next();
 };
