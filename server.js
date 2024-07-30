@@ -2,6 +2,7 @@ const express = require('express');
 const useragent = require('express-useragent');
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
+const ipapi = require('ipapi.co');
 
 const app = express();
 const port = 3000;
@@ -12,9 +13,9 @@ app.use(requestIp.mw());
 
 // Sample email to pin code mapping
 const emailToPinCodeMap = {
-    'user1@example.com': '110001',
-    'user2@example.com': '400076',
-    'user3@example.com': '400072',
+    'user1@example.com': 'Mumbai',
+    'user2@example.com': 'Pune',
+    'user3@example.com': 'Mumbai',
 };
 
 // Middleware to check if the request is from a mobile browser
@@ -37,6 +38,7 @@ const geoFenceMiddleware = (req, res, next) => {
     const clientIp = req.clientIp;
     console.log("clientIP ", clientIp);
     const geo = geoip.lookup(clientIp);
+
     console.log("geo ", geo);
     if (!geo) {
         return res.status(403).send('Error: Unable to determine location from IP.');
