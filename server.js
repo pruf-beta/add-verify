@@ -29,10 +29,10 @@ const mobileOnlyMiddleware = (req, res, next) => {
 // Middleware to check if the IP's location matches the pin code associated with the email
 const geoFenceMiddleware = (req, res, next) => {
     const email = req.query.email;
-    const userPinCode = emailToPinCodeMap[email];
+    const userCity = emailToPinCodeMap[email];
 
-    if (!userPinCode) {
-        return res.status(403).send('Error: Email not associated with any allowed pin code.');
+    if (!userCity) {
+        return res.status(403).send('Error: Email not associated with any allowed city.');
     }
 
     const clientIp = req.clientIp;
@@ -44,17 +44,18 @@ const geoFenceMiddleware = (req, res, next) => {
         return res.status(403).send('Error: Unable to determine location from IP.');
     }
 
-    const userLocationPinCode = geo.zip;
-    console.log("userLocationPinCode ", userLocationPinCode);
-    if (userPinCode !== userLocationPinCode) {
-        return res.status(403).send('Error: This URL is accessible only within the allowed pin code area.');
+    //const userLocationPinCode = geo.zip;
+    const userLocationCity = geo.city;
+    console.log("userLocationCity ", userLocationCity);
+    if (userCity !== userLocationCity) {
+        return res.status(403).send('Error: This URL is accessible only within the allowed city area.');
     }
     next();
 };
 
 // Route to handle mobile-only and geo-fenced access
 app.get('/verify', mobileOnlyMiddleware, geoFenceMiddleware, (req, res) => {
-    res.send('This URL is accessible on mobile browsers within the allowed pin code area.');
+    res.send('This URL is accessible on mobile browsers within the allowed city area.');
 });
 
 app.listen(port, () => {
