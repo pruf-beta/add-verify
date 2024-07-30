@@ -21,7 +21,7 @@ const emailToPinCodeMap = {
 // Middleware to check if the request is from a mobile browser
 const mobileOnlyMiddleware = (req, res, next) => {
     if (!req.useragent.isMobile) {
-        return res.status(403).send('Error: This URL is accessible only on mobile browsers.');
+        return res.status(403).send('Error: This URL is accessible only on mobile. Please access from mobile browsers');
     }
     next();
 };
