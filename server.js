@@ -48,7 +48,7 @@ const geoFenceMiddleware = (req, res, next) => {
     const userLocationCity = geo.city;
     console.log("userLocationCity ", userLocationCity);
     if (userCity == userLocationCity) {
-        return res.status(201).send('Great to see you in ', userLocationCity);
+        return res.status(201).send('Great to see you in ');
     }
     else {
         return res.status(403).send('Error: This URL is accessible only within the allowed city area. You are accessing this URL from ', userLocationCity);
