@@ -47,18 +47,15 @@ const geoFenceMiddleware = (req, res, next) => {
     //const userLocationPinCode = geo.zip;
     const userLocationCity = geo.city;
     console.log("userLocationCity ", userLocationCity);
-    if (userCity == userLocationCity) {
-        return res.status(201).send('Great to see you in ');
-    }
-    else {
-        return res.status(403).send('Error: This URL is accessible only within the allowed city area. You are accessing this URL from ', userLocationCity);
+    if (userCity !== userLocationCity) {
+        return res.status(403).send('Error: This URL is accessible only within the allowed city area.');
     }
     next();
 };
 
 // Route to handle mobile-only and geo-fenced access
 app.get('/verify', mobileOnlyMiddleware, geoFenceMiddleware, (req, res) => {
-    res.send('This URL is accessible on mobile browsers within the allowed city area.');
+    res.status(200).send("Great to see you here. You are allowed to proceed");
 });
 
 app.listen(port, () => {
